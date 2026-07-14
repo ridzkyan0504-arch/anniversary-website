@@ -204,11 +204,11 @@ function SlideScrapbook() {
   const [activePhoto, setActivePhoto] = useState(null)
   const photos = [
     { id:1, src:'/photos/selfiepertama.jpeg',        emoji:'🤳', caption:'Selfie Pertama Kita',       date:'💛 Awal yang Manis',   rotate:-3, tape:'tl' },
-    { id:2, src:'/photos/fotoboothpertama.jpeg',     emoji:'📸', caption:'Fotobooth Pertama',          date:'🩷 Momen Abadi',       rotate: 2, tape:'tr' },
+    { id:2, src:'/photos/fotoboothpertama.jpeg',     emoji:'📸', caption:'Fotobooth Pertama Kitaa',          date:'🩷 Momen Abadi',       rotate: 2, tape:'tr' },
     { id:3, src:'/photos/fotoboothkesekiankali.jpeg',emoji:'🎞️', caption:'Fotobooth Lagi & Lagi',     date:'✨ Kebiasaan Kita',    rotate:-2, tape:'tl' },
-    { id:4, src:'/photos/badminton.jpeg',            emoji:'🏸', caption:'Main Bareng',                date:'💖 Kompak Terus',      rotate: 3, tape:'tr' },
-    { id:5, src:'/photos/digebyok.jpeg',             emoji:'💦', caption:'Digebyok!',                  date:'😂 Lucu Banget',       rotate:-1, tape:'tl' },
-    { id:6, src:'/photos/psan.jpeg',                 emoji:'💌', caption:'Pesan Sayang',               date:'🌸 Selalu di Hati',    rotate: 2, tape:'tr' },
+    { id:4, src:'/photos/badminton.jpeg',            emoji:'🏸', caption:'Badminton!!',                date:'💖 Kompak Terus',      rotate: 3, tape:'tr' },
+    { id:5, src:'/photos/digebyok.jpeg',             emoji:'💦', caption:'Anjay di Digebyok',                  date:'😂 Lucu Banget',       rotate:-1, tape:'tl' },
+    { id:6, src:'/photos/psan.jpeg',                 emoji:'💌', caption:'Waktu PS-an',               date:'🌸 Selalu di Hati',    rotate: 2, tape:'tr' },
   ]
   useEffect(() => {
     gsap.fromTo('.scrap-title', { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5, delay:0.1 })
