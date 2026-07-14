@@ -7,7 +7,6 @@ import SlideCountdown from './slides/SlideCountdown'
 import SlideScrapbook from './slides/SlideScrapbook'
 import SlideQuiz from './slides/SlideQuiz'
 import SlideCassette from './slides/SlideCassette'
-import SlidePlaylist from './slides/SlidePlaylist'
 import SlideLoveLetter from './slides/SlideLoveLetter'
 import SlideReasons from './slides/SlideReasons'
 import SlidePromise from './slides/SlidePromise'
@@ -23,7 +22,6 @@ const SLIDE_LABELS = [
   '🎲 Kuis Kita',
   '📖 Buku Cerita',
   '🎬 Video',
-  '🎵 Playlist',
   '💌 Surat',
   '💝 Alasan',
   '🎁 Kado',
@@ -46,7 +44,6 @@ export default function SlideShow({ onKiss }) {
     <SlideQuiz key="quiz" />,
     <SlideFlipbook key="flipbook" />,
     <SlideCassette key="cassette" />,
-    <SlidePlaylist key="playlist" />,
     <SlideLoveLetter key="loveletter" />,
     <SlideReasons key="reasons" />,
     <SlideGift key="gift" />,
@@ -91,18 +88,18 @@ export default function SlideShow({ onKiss }) {
   function next() {
     if (current < total - 1) goTo(current + 1, 1)
   }
-  
+
   function prev() {
     if (current > 0) goTo(current - 1, -1)
   }
 
   // Swipe support
   const touchStart = useRef(null)
-  
+
   function onTouchStart(e) {
     touchStart.current = e.touches[0].clientX
   }
-  
+
   function onTouchEnd(e) {
     if (touchStart.current === null) return
     const diff = touchStart.current - e.changedTouches[0].clientX
