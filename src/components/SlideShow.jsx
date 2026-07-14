@@ -129,7 +129,7 @@ export default function SlideShow({ onKiss }) {
       <div className="slide-label-top">{SLIDE_LABELS[current]}</div>
 
       {/* Slide content */}
-      <div className="slide-content" ref={containerRef}>
+      <div className={`slide-content ${current === total - 1 ? 'is-final' : ''}`} ref={containerRef}>
         {slides[current]}
       </div>
 

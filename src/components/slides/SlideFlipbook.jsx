@@ -12,18 +12,18 @@ export default function SlideFlipbook() {
       front: { isCover: true, title: 'Pesona Putri ✨', emoji: '📸' },
       back: { }
     },
-    { id: 1, front: { photo: '/photos/putri-1.jpg' }, back: { } },
-    { id: 2, front: { photo: '/photos/putri-2.jpg' }, back: { } },
-    { id: 3, front: { photo: '/photos/putri-3.jpg' }, back: { } },
-    { id: 4, front: { photo: '/photos/putri-4.jpg' }, back: { } },
-    { id: 5, front: { photo: '/photos/putri-5.jpg' }, back: { } },
-    { id: 6, front: { photo: '/photos/putri-6.jpg' }, back: { } },
-    { id: 7, front: { photo: '/photos/putri-7.jpg' }, back: { } },
-    { id: 8, front: { photo: '/photos/putri-8.jpg' }, back: { } },
-    { id: 9, front: { photo: '/photos/putri-9.jpg' }, back: { } },
+    { id: 1, front: { photo: '/photos/putri-1.jpeg' }, back: { } },
+    { id: 2, front: { photo: '/photos/putri-2.jpeg' }, back: { } },
+    { id: 3, front: { photo: '/photos/putri-3.jpeg' }, back: { } },
+    { id: 4, front: { photo: '/photos/putri-4.jpeg' }, back: { } },
+    { id: 5, front: { photo: '/photos/putri-5.jpeg' }, back: { } },
+    { id: 6, front: { photo: '/photos/putri-6.jpeg' }, back: { } },
+    { id: 7, front: { photo: '/photos/putri-7.jpeg' }, back: { } },
+    { id: 8, front: { photo: '/photos/putri-8.jpeg' }, back: { } },
+    { id: 9, front: { photo: '/photos/putri-9.jpeg' }, back: { } },
     {
       id: 10,
-      front: { photo: '/photos/putri-10.jpg' },
+      front: { photo: '/photos/putri-10.jpeg' },
       back: { isCover: true, title: 'Cantik Banget!', emoji: '❤️' }
     }
   ]
