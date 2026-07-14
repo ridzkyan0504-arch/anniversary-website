@@ -363,11 +363,129 @@ function KissPopup({ visible, onClose }) {
   )
 }
 
-// ─── Slide definitions ────────────────────────────────────────────────────────
+// ─── Slide: Cassette Video ────────────────────────────────────────────────────
+function SlideCassette() {
+  const [playing, setPlaying] = useState(false)
+  const videoRef = useRef(null)
+  const reelLRef = useRef(null)
+  const reelRRef = useRef(null)
+  const reelAnimL = useRef(null)
+  const reelAnimR = useRef(null)
+
+  useEffect(() => {
+    // entrance animation
+    gsap.fromTo('.cassette-wrap',
+      { opacity: 0, y: 50, rotation: -6 },
+      { opacity: 1, y: 0, rotation: -2, duration: 0.8, ease: 'back.out(1.5)', delay: 0.1 }
+    )
+    gsap.fromTo('.cassette-label-text',
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5, delay: 0.6 }
+    )
+    gsap.fromTo('.cassette-hint',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, delay: 1 }
+    )
+  }, [])
+
+  function startReelSpin() {
+    reelAnimL.current = gsap.to(reelLRef.current, { rotation: 360, duration: 1.8, ease: 'none', repeat: -1 })
+    reelAnimR.current = gsap.to(reelRRef.current, { rotation: 360, duration: 2.4, ease: 'none', repeat: -1 })
+  }
+  function stopReelSpin() {
+    reelAnimL.current?.kill()
+    reelAnimR.current?.kill()
+  }
+
+  function handleCassetteClick() {
+    if (playing) return
+    setPlaying(true)
+    // shake cassette then play
+    gsap.to('.cassette-wrap', {
+      rotation: 0, duration: 0.3, ease: 'back.out(2)',
+      onComplete: () => {
+        videoRef.current?.play()
+        startReelSpin()
+        gsap.to('.cassette-hint', { opacity: 0, duration: 0.3 })
+        gsap.to('.cassette-play-btn', { opacity: 0, duration: 0.3 })
+        gsap.to('.video-player', { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' })
+      }
+    })
+  }
+
+  function handleVideoEnd() {
+    setPlaying(false)
+    stopReelSpin()
+    gsap.to('.video-player', { opacity: 0, scale: 0.9, duration: 0.4 })
+    gsap.to('.cassette-wrap', { rotation: -2, duration: 0.4 })
+    gsap.to('.cassette-hint', { opacity: 1, duration: 0.4, delay: 0.3 })
+    gsap.to('.cassette-play-btn', { opacity: 1, duration: 0.4, delay: 0.3 })
+  }
+
+  return (
+    <div className="slide-inner slide-cassette">
+      <p className="section-label">🎬 First Date</p>
+      <h2 className="cassette-label-text section-title">Video Kenangan<br />Kita 🎞️</h2>
+
+      {/* Cassette tape illustration */}
+      <div className="cassette-wrap" onClick={handleCassetteClick}>
+        <div className="cassette-body">
+          {/* Top cutout with reels */}
+          <div className="cassette-window">
+            <div className="cassette-reel" ref={reelLRef}>
+              <div className="reel-inner" />
+              {[0,60,120,180,240,300].map(a => (
+                <div key={a} className="reel-spoke" style={{ transform: `rotate(${a}deg)` }} />
+              ))}
+            </div>
+            <div className="cassette-tape-line" />
+            <div className="cassette-reel" ref={reelRRef}>
+              <div className="reel-inner" />
+              {[0,60,120,180,240,300].map(a => (
+                <div key={a} className="reel-spoke" style={{ transform: `rotate(${a}deg)` }} />
+              ))}
+            </div>
+          </div>
+          {/* Label */}
+          <div className="cassette-label">
+            <p className="cassette-title">First Date 🎬</p>
+            <p className="cassette-sub">Side A — Kenangan Terindah</p>
+            <div className="cassette-lines">
+              <span /><span /><span />
+            </div>
+          </div>
+          {/* Bottom holes */}
+          <div className="cassette-holes">
+            <div className="cassette-hole" />
+            <div className="cassette-screw" />
+            <div className="cassette-hole" />
+          </div>
+        </div>
+        {/* Play button overlay */}
+        <div className="cassette-play-btn">▶ Putar Video</div>
+      </div>
+
+      <p className="cassette-hint">✨ Ketuk kaset untuk memutar</p>
+
+      {/* Video player */}
+      <div className="video-player">
+        <video
+          ref={videoRef}
+          src="/photos/firstdate.mp4"
+          className="cassette-video"
+          playsInline
+          controls
+          onEnded={handleVideoEnd}
+        />
+      </div>
+    </div>
+  )
+}
 const SLIDE_LABELS = [
   '💕 Pembuka',
   '⏳ Waktu Kita',
   '📷 Kenangan',
+  '🎬 Video',
   '💌 Surat',
   '💝 Alasan',
   '💍 Janji',
@@ -385,6 +503,7 @@ function SlideShow({ onKiss }) {
     <SlideHero />,
     <SlideCountdown />,
     <SlideScrapbook />,
+    <SlideCassette />,
     <SlideLoveLetter />,
     <SlideReasons />,
     <SlidePromise />,
