@@ -203,12 +203,12 @@ function Lightbox({ photo, onClose }) {
 function SlideScrapbook() {
   const [activePhoto, setActivePhoto] = useState(null)
   const photos = [
-    { id:1, src:null, emoji:'☕', caption:'Kopi Pertama Kita',    date:'💛 Tak Terlupakan', rotate:-3, tape:'tl' },
-    { id:2, src:null, emoji:'🌧️', caption:'Hujan & Pelukan Hangat', date:'🩷 Penuh Rasa',    rotate: 2, tape:'tr' },
-    { id:3, src:null, emoji:'🌙', caption:'Malam-malam Panjang',   date:'✨ Tengah Malam',   rotate:-2, tape:'tl' },
-    { id:4, src:null, emoji:'🎉', caption:'Momen Bahagia Kita',    date:'💖 Forever',        rotate: 3, tape:'tr' },
-    { id:5, src:null, emoji:'🌅', caption:'Pagi yang Indah',       date:'🌸 Bersama',        rotate:-1, tape:'tl' },
-    { id:6, src:null, emoji:'💫', caption:'Petualangan Kita',      date:'✨ Seru Banget',     rotate: 2, tape:'tr' },
+    { id:1, src:'/photos/selfiepertama.jpeg',        emoji:'🤳', caption:'Selfie Pertama Kita',       date:'💛 Awal yang Manis',   rotate:-3, tape:'tl' },
+    { id:2, src:'/photos/fotoboothpertama.jpeg',     emoji:'📸', caption:'Fotobooth Pertama',          date:'🩷 Momen Abadi',       rotate: 2, tape:'tr' },
+    { id:3, src:'/photos/fotoboothkesekiankali.jpeg',emoji:'🎞️', caption:'Fotobooth Lagi & Lagi',     date:'✨ Kebiasaan Kita',    rotate:-2, tape:'tl' },
+    { id:4, src:'/photos/badminton.jpeg',            emoji:'🏸', caption:'Main Bareng',                date:'💖 Kompak Terus',      rotate: 3, tape:'tr' },
+    { id:5, src:'/photos/digebyok.jpeg',             emoji:'💦', caption:'Digebyok!',                  date:'😂 Lucu Banget',       rotate:-1, tape:'tl' },
+    { id:6, src:'/photos/psan.jpeg',                 emoji:'💌', caption:'Pesan Sayang',               date:'🌸 Selalu di Hati',    rotate: 2, tape:'tr' },
   ]
   useEffect(() => {
     gsap.fromTo('.scrap-title', { opacity:0, y:20 }, { opacity:1, y:0, duration:0.5, delay:0.1 })
