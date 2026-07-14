@@ -7,7 +7,6 @@ export default function SlideReasons() {
     { title: 'Cara Kamu Peduli', text: 'Kamu selalu tahu kapan aku butuh dukungan, bahkan tanpa aku bilang. Itu luar biasa.' },
     { title: 'Tawamu yang Menular', text: 'Tertawa bersamamu adalah salah satu suara favorit yang ingin aku dengar setiap hari.' },
     { title: 'Kejujuranmu', text: 'Kamu selalu jujur padaku meski kadang tidak mudah. Itu membuatku semakin percaya.' },
-    { title: 'Keberanianmu', text: 'Kamu menghadapi setiap tantangan dengan kepala tegak. Itu sangat menginspirasi aku.' },
     { title: 'Kamu Apa Adanya', text: 'Bukan karena sempurna — tapi justru karena semua yang asli dari dirimu itulah yang aku cintai.' },
   ]
   

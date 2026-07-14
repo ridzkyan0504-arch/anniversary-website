@@ -5,7 +5,9 @@ import FloatingHearts from './FloatingHearts'
 import SlideHero from './slides/SlideHero'
 import SlideCountdown from './slides/SlideCountdown'
 import SlideScrapbook from './slides/SlideScrapbook'
+import SlideQuiz from './slides/SlideQuiz'
 import SlideCassette from './slides/SlideCassette'
+import SlidePlaylist from './slides/SlidePlaylist'
 import SlideLoveLetter from './slides/SlideLoveLetter'
 import SlideReasons from './slides/SlideReasons'
 import SlidePromise from './slides/SlidePromise'
@@ -18,8 +20,10 @@ const SLIDE_LABELS = [
   '💕 Pembuka',
   '⏳ Waktu Kita',
   '📷 Kenangan',
+  '🎲 Kuis Kita',
   '📖 Buku Cerita',
   '🎬 Video',
+  '🎵 Playlist',
   '💌 Surat',
   '💝 Alasan',
   '🎁 Kado',
@@ -39,8 +43,10 @@ export default function SlideShow({ onKiss }) {
     <SlideHero key="hero" />,
     <SlideCountdown key="countdown" />,
     <SlideScrapbook key="scrapbook" />,
+    <SlideQuiz key="quiz" />,
     <SlideFlipbook key="flipbook" />,
     <SlideCassette key="cassette" />,
+    <SlidePlaylist key="playlist" />,
     <SlideLoveLetter key="loveletter" />,
     <SlideReasons key="reasons" />,
     <SlideGift key="gift" />,

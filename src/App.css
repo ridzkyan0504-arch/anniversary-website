@@ -133,6 +133,9 @@
   text-align: center; margin-bottom: 12px;
 }
 .hero-title span { color: var(--rose); font-style: italic; }
+.hero-couple { color: var(--rose-dark); font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+.hero-couple span { color: var(--rose); margin: 0 5px; }
+.hero-date { color: var(--text-light); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
 .hero-subtitle {
   font-size: 15px; color: var(--text-mid); text-align: center;
   line-height: 1.7; max-width: 300px;
@@ -181,6 +184,14 @@
   display: grid; grid-template-columns: repeat(2,1fr);
   gap: 16px; max-width: 360px; margin: 0 auto 10px; padding: 8px;
 }
+.slide-scrapbook,
+.slide-reasons {
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+.slide-scrapbook {
+  padding-top: 44px;
+}
 .scrap-item {
   background: white; border-radius: 4px; padding: 10px 10px 18px;
   box-shadow: 3px 4px 14px rgba(0,0,0,0.13);
@@ -214,6 +225,22 @@
 .scrap-caption {
   font-family:'Playfair Display',serif; font-size:11px;
   color:var(--text-mid); text-align:center; font-style:italic;
+}
+.secret-message {
+  position: fixed; inset: 0; z-index: 250; display: flex; align-items: center; justify-content: center;
+  padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  background: rgba(61, 26, 36, 0.76); backdrop-filter: blur(8px);
+}
+.secret-message-card {
+  width: min(100%, 330px); background: linear-gradient(145deg, #fffdf9, #fff0f5); border-radius: 24px;
+  padding: 30px 24px; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28); border: 1px solid rgba(232, 84, 122, 0.22);
+}
+.secret-message-heart { display: block; font-size: 46px; margin-bottom: 8px; }
+.secret-message-label { color: var(--rose); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+.secret-message-card h3 { color: var(--text-dark); font-size: 28px; margin-bottom: 12px; }
+.secret-message-card > p:not(.secret-message-label) { color: var(--text-mid); font-size: 14px; line-height: 1.75; margin-bottom: 22px; }
+.secret-message-card button, .quiz-result button {
+  background: linear-gradient(135deg, var(--rose), var(--rose-dark)); color: white; padding: 12px 20px; border-radius: 50px; font-weight: 700; font-size: 13px;
 }
 
 /* ============ LIGHTBOX ============ */
@@ -279,6 +306,58 @@
 .reason-text { font-size:13px; color:var(--text-mid); line-height:1.65; padding-top:4px; text-align:left; }
 .reason-text strong { color:var(--text-dark); font-size:14px; display:block; margin-bottom:2px; }
 
+/* ============ QUIZ ============ */
+.quiz-card { width: min(100%, 350px); background: rgba(255,255,255,0.9); border: 1.5px solid rgba(232,84,122,0.18); border-radius: 24px; padding: 24px 20px; box-shadow: 0 10px 32px rgba(232,84,122,0.12); animation: quizCardEnter .45s cubic-bezier(.2,.8,.2,1) both; }
+.quiz-progress { color: var(--text-light); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+.quiz-question { color: var(--text-dark); font-size: 21px; line-height: 1.35; margin-bottom: 20px; animation: quizFadeUp .4s .08s both; }
+.quiz-options { display: grid; gap: 10px; }
+.quiz-option { width: 100%; padding: 13px 14px; border-radius: 14px; background: #fff5f8; color: var(--text-mid); font-size: 14px; font-weight: 700; border: 1px solid rgba(232,84,122,0.14); transition: transform .28s cubic-bezier(.2,.8,.2,1), background .28s ease, color .28s ease, border-color .28s ease, opacity .28s ease, box-shadow .28s ease; animation: quizFadeUp .38s calc(.14s + var(--quiz-index) * .07s) both; }
+.quiz-option:active { transform: scale(.97); }
+.quiz-options.answered .quiz-option:not(.correct):not(.wrong) { opacity: .48; transform: scale(.98); }
+.quiz-option.correct { background: #dff7e7; color: #24744a; border-color: #8bd5a4; box-shadow: 0 6px 18px rgba(74, 161, 103, .2); animation: quizCorrect .5s cubic-bezier(.2,.8,.2,1) both; }
+.quiz-option.wrong { background: #ffe1e6; color: #a13654; border-color: #f2a1b2; animation: quizWrong .36s ease both; }
+.quiz-result { margin-top: 18px; padding-top: 16px; border-top: 1px dashed rgba(232,84,122,0.25); animation: quizResultIn .38s cubic-bezier(.2,.8,.2,1) both; }
+.quiz-result p { color: var(--text-mid); font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+@keyframes quizCardEnter { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes quizFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes quizResultIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes quizCorrect { 0% { transform: scale(1); } 45% { transform: scale(1.035); } 100% { transform: scale(1); } }
+@keyframes quizWrong { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* ============ PLAYLIST (APPLE MUSIC-INSPIRED) ============ */
+.apple-music-player { width: min(100%, 350px); padding: 18px 22px 20px; border-radius: 26px; background: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 14px 40px rgba(156, 80, 111, .16); backdrop-filter: blur(18px); }
+.apple-album-art { position: relative; width: min(100%, 220px); aspect-ratio: 1; margin: 0 auto 17px; border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 24px rgba(97, 38, 68, .25); }
+.apple-album-art::before, .apple-album-art::after { content: ''; position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,.28); }
+.apple-album-art::before { width: 155%; height: 155%; }
+.apple-album-art::after { width: 95%; height: 95%; }
+.apple-album-art.peach { background: radial-gradient(circle at 28% 28%, #fff7e9 0 7%, transparent 8%), linear-gradient(145deg, #f8bd9d, #e9768c 55%, #9d4d7d); }
+.apple-album-art.violet { background: radial-gradient(circle at 72% 25%, #f8d8ff 0 8%, transparent 9%), linear-gradient(145deg, #9d8ae8, #7356a4 56%, #453366); }
+.apple-album-art.rose { background: radial-gradient(circle at 24% 72%, #fff5ca 0 7%, transparent 8%), linear-gradient(145deg, #ffacbf, #e85580 57%, #923c69); }
+.apple-album-art span { position: relative; z-index: 1; font-size: 80px; filter: drop-shadow(0 6px 8px rgba(0,0,0,.16)); }
+.apple-album-art i { position: absolute; right: 17px; bottom: 12px; color: rgba(255,255,255,.72); font-size: 32px; font-style: normal; }
+.apple-playing-label { color: var(--text-light); font-size: 9px; letter-spacing: .16em; font-weight: 700; margin-bottom: 5px; }
+.apple-song-title { color: var(--text-dark); font-size: 21px; line-height: 1.25; }
+.apple-artist { color: var(--text-light); font-size: 13px; margin-top: 3px; }
+.apple-progress { height: 4px; margin-top: 18px; border-radius: 50px; background: rgba(61,26,36,.15); overflow: hidden; }
+.apple-progress span { display: block; width: 36%; height: 100%; border-radius: inherit; background: var(--rose); }
+.apple-time { display: flex; justify-content: space-between; color: var(--text-light); font-size: 10px; margin-top: 5px; }
+.apple-controls { display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 12px; }
+.apple-controls button { color: var(--text-dark); font-size: 22px; background: transparent; transition: transform .2s; }
+.apple-controls button:active { transform: scale(.88); }
+.apple-controls .apple-play { display: grid; place-items: center; width: 48px; height: 48px; padding-left: 3px; border-radius: 50%; color: white; font-size: 18px; background: var(--rose); box-shadow: 0 6px 16px rgba(232,84,122,.35); }
+.playlist-card { width: min(100%, 350px); margin-top: 12px; background: rgba(255,255,255,0.72); border-radius: 18px; padding: 4px 16px; box-shadow: 0 8px 24px rgba(232,84,122,0.08); border: 1px solid rgba(232,84,122,0.12); }
+.playlist-song { width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(232,84,122,0.1); text-align: left; background: transparent; transition: transform .2s, opacity .2s; }
+.playlist-song:active { transform: scale(.98); }
+.playlist-song.active .playlist-info strong, .playlist-song.active .playlist-note { color: var(--rose); }
+.playlist-song:last-child { border-bottom: 0; }
+.playlist-number { color: var(--rose-light); font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; }
+.playlist-emoji { font-size: 22px; }
+.playlist-info { display: flex; flex: 1; flex-direction: column; gap: 2px; }
+.playlist-info strong { color: var(--text-dark); font-size: 14px; }
+.playlist-info small { color: var(--text-light); font-size: 12px; }
+.playlist-note { color: var(--rose); font-size: 20px; }
+.playlist-hint { max-width: 290px; margin-top: 18px; color: var(--text-light); font-size: 12px; line-height: 1.6; }
+
 /* ============ PROMISE ============ */
 .promise-cards { display:flex; flex-direction:column; gap:10px; max-width:360px; width:100%; margin:0 auto; }
 .promise-card {
@@ -322,6 +401,9 @@
   padding: max(32px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); opacity:0; pointer-events:none;
 }
 .kiss-popup.active { pointer-events:all; }
+.kiss-confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.kiss-confetti span { position: absolute; top: -12vh; font-size: 22px; animation: kissConfettiFall 2.3s linear both; }
+@keyframes kissConfettiFall { from { transform: translate3d(0, -8vh, 0) rotate(0deg); opacity: 0; } 12% { opacity: 1; } to { transform: translate3d(28px, 112vh, 0) rotate(300deg); opacity: 0.8; } }
 .kiss-popup-content { text-align:center; transform:scale(0.8); }
 .kiss-emoji { font-size:100px; display:block; margin-bottom:20px; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.2)); }
 .kiss-title { font-size:32px; color:white; margin-bottom:12px; }
@@ -1145,6 +1227,7 @@
   .hero-badge { margin-bottom: 16px; }
   .hero-main-heart { font-size: 60px; margin-bottom: 14px; }
   .hero-title { font-size: clamp(30px, 9vw, 38px); }
+  .hero-date { margin-bottom: 10px; }
   .section-title { font-size: 25px; }
   .section-desc { margin-bottom: 16px; }
   .countdown-card { padding: 16px 10px; }
@@ -1157,6 +1240,8 @@
   .final-footer { margin-top: 16px; }
   .env-pre-label { margin-bottom: 20px; }
   .env-wrapper { transform: scale(0.88); margin-bottom: 14px; }
+  .quiz-card { padding: 18px 16px; }
+  .quiz-question { font-size: 19px; }
 }
 
 @media (orientation: landscape) and (max-height: 500px) {

@@ -19,6 +19,7 @@ export default function SlideHero() {
       <h1 className="s-hero-title hero-title">
         Happy <span>Anniversary</span>,<br />Sayangku 🌸
       </h1>
+      <p className="hero-date">1 Agustus 2026</p>
       <p className="s-hero-sub hero-subtitle">
         Hari ini adalah hari yang selalu akan aku ingat — hari di mana hidupku jadi lebih berwarna karena ada kamu. 💖
       </p>

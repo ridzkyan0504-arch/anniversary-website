@@ -45,8 +45,46 @@ function Lightbox({ photo, onClose }) {
   )
 }
 
+function SecretMessage({ onClose }) {
+  return (
+    <div className="secret-message" role="dialog" aria-modal="true" aria-label="Pesan rahasia">
+      <div className="secret-message-card">
+        <span className="secret-message-heart">💌</span>
+        <p className="secret-message-label">Pesan Rahasia</p>
+        <h3>Untuk Putri</h3>
+        <p>Di antara semua foto ini, versi kamu yang paling aku suka tetap yang sedang tersenyum di depanku. Terima kasih sudah jadi rumah paling hangat untuk Kian. 💕</p>
+        <button onClick={onClose}>Simpan Rahasianya 🤍</button>
+      </div>
+    </div>
+  )
+}
+
 export default function SlideScrapbook() {
   const [activePhoto, setActivePhoto] = useState(null)
+  const [secretVisible, setSecretVisible] = useState(false)
+  const holdTimerRef = useRef(null)
+  const skipPhotoRef = useRef(false)
+
+  function clearPhotoHold() {
+    clearTimeout(holdTimerRef.current)
+    holdTimerRef.current = null
+  }
+
+  function startPhotoHold() {
+    skipPhotoRef.current = false
+    holdTimerRef.current = setTimeout(() => {
+      skipPhotoRef.current = true
+      setSecretVisible(true)
+    }, 650)
+  }
+
+  function openPhoto(photo) {
+    if (skipPhotoRef.current) {
+      skipPhotoRef.current = false
+      return
+    }
+    setActivePhoto(photo)
+  }
   
   useEffect(() => {
     gsap.fromTo('.scrap-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.1 })
@@ -64,7 +102,16 @@ export default function SlideScrapbook() {
       <p className="section-desc">Ketuk setiap foto untuk membuka kenangan indah kita.</p>
       <div className="scrapbook-grid">
         {PHOTOS.map((p) => (
-          <div key={p.id} className="scrap-item" style={{ '--rot': `${p.rotate}deg` }} onClick={() => setActivePhoto(p)}>
+          <div
+            key={p.id}
+            className="scrap-item"
+            style={{ '--rot': `${p.rotate}deg` }}
+            onPointerDown={startPhotoHold}
+            onPointerUp={clearPhotoHold}
+            onPointerLeave={clearPhotoHold}
+            onPointerCancel={clearPhotoHold}
+            onClick={() => openPhoto(p)}
+          >
             <div className={`scrap-tape scrap-tape-${p.tape}`} />
             <div className="scrap-photo-wrap">
               {p.src ? (
@@ -80,6 +127,7 @@ export default function SlideScrapbook() {
         ))}
       </div>
       {activePhoto && <Lightbox photo={activePhoto} onClose={() => setActivePhoto(null)} />}
+      {secretVisible && <SecretMessage onClose={() => setSecretVisible(false)} />}
     </div>
   )
 }
