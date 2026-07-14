@@ -21,6 +21,8 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  min-height: 100%;
+  background: var(--cream);
 }
 
 body {
@@ -28,6 +30,8 @@ body {
   font-family: 'Lato', sans-serif;
   color: var(--text-dark);
   overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 #root {
@@ -35,6 +39,8 @@ body {
   max-width: 480px;
   margin: 0 auto;
   position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 h1, h2, h3 {

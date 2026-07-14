@@ -14,12 +14,13 @@
   background: linear-gradient(160deg, #ffe0ec 0%, #fff0fa 40%, #fff8f2 100%);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
+  min-height: 100vh; min-height: 100dvh;
   overflow: hidden; z-index: 1;
 }
 
 /* Slide label top */
 .slide-label-top {
-  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: calc(12px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
   color: var(--rose); text-transform: uppercase;
   background: rgba(255,255,255,0.75);
@@ -31,7 +32,7 @@
 
 /* Dots */
 .slide-dots {
-  position: absolute; top: 56px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: calc(52px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
   display: flex; gap: 6px; z-index: 10;
 }
 .slide-dot {
@@ -45,17 +46,20 @@
 }
 /* Counter below dots */
 .slide-counter-wrap {
-  position: absolute; top: 76px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: calc(72px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
   z-index: 10;
 }
 
 /* Slide content area */
 .slide-content {
   width: 100%; max-width: 480px;
-  height: 100svh; overflow-y: auto;
+  height: 100vh; height: 100dvh; overflow-y: auto;
   display: flex; flex-direction: column;
-  padding-top: 80px; padding-bottom: 80px;
+  padding-top: calc(92px + env(safe-area-inset-top));
+  padding-bottom: calc(88px + env(safe-area-inset-bottom));
   position: relative; z-index: 2;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   /* hide scrollbar */
   scrollbar-width: none;
 }
@@ -67,6 +71,7 @@
   align-items: center; justify-content: center;
   padding: 0 24px 24px; text-align: center;
   min-height: 100%;
+  width: 100%;
 }
 
 /* ============ NAV BUTTONS ============ */
@@ -76,7 +81,7 @@
   left: 0; right: 0;
   transform: translateY(-50%);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 12px;
+  padding: 0 max(12px, env(safe-area-inset-left));
   pointer-events: none;
   z-index: 10;
 }
@@ -216,7 +221,7 @@
   position: fixed; inset:0;
   background: rgba(30,10,20,0.75); backdrop-filter: blur(6px);
   z-index: 200; display:flex; align-items:center; justify-content:center;
-  padding: 24px; opacity:0;
+  padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); opacity:0;
 }
 .lb-card {
   background:white; border-radius:4px; padding:14px 14px 28px;
@@ -314,7 +319,7 @@
   position:fixed; inset:0; background:rgba(193,48,96,0.85);
   backdrop-filter:blur(8px); z-index:100;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:40px; opacity:0; pointer-events:none;
+  padding: max(32px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); opacity:0; pointer-events:none;
 }
 .kiss-popup.active { pointer-events:all; }
 .kiss-popup-content { text-align:center; transform:scale(0.8); }
@@ -325,7 +330,7 @@
 
 /* ============ MUSIC FAB ============ */
 .music-fab {
-  position:fixed; bottom:80px; right:20px; z-index:50;
+  position:fixed; bottom:calc(76px + env(safe-area-inset-bottom)); right:max(20px, env(safe-area-inset-right)); z-index:50;
   width:52px; height:52px; border-radius:50%;
   background:linear-gradient(135deg,var(--rose),var(--rose-dark));
   box-shadow:0 4px 20px rgba(232,84,122,0.45);
@@ -350,8 +355,9 @@
 
 /* ============ ENVELOPE ============ */
 .envelope-section {
-  min-height:100svh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; padding:40px 24px;
+  min-height:100vh; min-height:100dvh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:calc(32px + env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) calc(32px + env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
   background:linear-gradient(160deg,#ffe0ec 0%,#fff0fa 40%,#fff8f2 100%);
   position:relative; overflow:hidden;
 }
@@ -575,7 +581,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
   opacity: 0;
   pointer-events: none;
 }
@@ -651,7 +657,7 @@
 /* Mobile optimizations for video overlay */
 @media (max-width: 480px) {
   .video-overlay {
-    padding: 16px 12px;
+    padding: max(16px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
   }
 
   .video-modal-content {
@@ -1115,13 +1121,51 @@
 
 @media (max-width: 480px) {
   .book-container {
-    width: 150px;
-    height: 220px;
+    --book-width: min(150px, 42vw);
+    width: var(--book-width);
+    height: min(220px, 38svh);
+    margin-top: 0.5rem;
   }
-  .book-container.opened { transform: translateX(75px); }
-  .book-container.closed-end { transform: translateX(150px); }
+  .book-container.opened { transform: translateX(min(75px, calc((100vw - var(--book-width)) / 2 - 20px))); }
+  .book-container.closed-end { transform: translateX(min(var(--book-width), calc((100vw - var(--book-width)) / 2 - 20px))); }
   .cover-title { font-size: 1.1rem; }
   .page-img-wrap { height: 110px; }
   .page-caption { font-size: 1rem; }
   .back-text { font-size: 0.85rem; }
+}
+
+/* iPhone SE and other compact screens: preserve every action by allowing scroll
+   and reducing only the decorative spacing. */
+@media (max-width: 390px), (max-height: 700px) {
+  .slide-content {
+    padding-top: calc(84px + env(safe-area-inset-top));
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+  .slide-inner { padding-inline: 16px; padding-bottom: 16px; }
+  .hero-badge { margin-bottom: 16px; }
+  .hero-main-heart { font-size: 60px; margin-bottom: 14px; }
+  .hero-title { font-size: clamp(30px, 9vw, 38px); }
+  .section-title { font-size: 25px; }
+  .section-desc { margin-bottom: 16px; }
+  .countdown-card { padding: 16px 10px; }
+  .countdown-card .number { font-size: 38px; }
+  .love-letter { padding: 22px 18px; }
+  .love-letter p { line-height: 1.8; }
+  .final-big-heart { font-size: 68px; margin-bottom: 12px; }
+  .final-title { font-size: 29px; }
+  .final-text { margin-bottom: 22px; }
+  .final-footer { margin-top: 16px; }
+  .env-pre-label { margin-bottom: 20px; }
+  .env-wrapper { transform: scale(0.88); margin-bottom: 14px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .slide-content {
+    padding-top: calc(72px + env(safe-area-inset-top));
+    padding-bottom: calc(52px + env(safe-area-inset-bottom));
+  }
+  .slide-nav { padding-inline: max(8px, env(safe-area-inset-left)); }
+  .slide-btn { width: 38px; height: 38px; }
+  .slide-inner { justify-content: flex-start; padding-top: 8px; }
+  .music-fab { bottom: calc(12px + env(safe-area-inset-bottom)); }
 }
