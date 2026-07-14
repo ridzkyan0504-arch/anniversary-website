@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
+const PHOTOS = [
+  { id: 1, src: '/photos/selfiepertama.jpeg', emoji: '🤳', caption: 'Selfie Pertama Kita', date: '💛 Awal yang Manis', rotate: -3, tape: 'tl' },
+  { id: 2, src: '/photos/fotoboothpertama.jpeg', emoji: '📸', caption: 'Fotobooth Pertama Kitaa', date: '🩷 Momen Abadi', rotate: 2, tape: 'tr' },
+  { id: 3, src: '/photos/fotoboothkesekiankali.jpeg', emoji: '🎞️', caption: 'Fotobooth Lagi & Lagi', date: '✨ Kebiasaan Kita', rotate: -2, tape: 'tl' },
+  { id: 4, src: '/photos/badminton.jpeg', emoji: '🏸', caption: 'Badminton!!', date: '💖 Kompak Terus', rotate: 3, tape: 'tr' },
+  { id: 5, src: '/photos/digebyok.jpeg', emoji: '💦', caption: 'Anjay di Digebyok', date: '😂 Lucu Banget', rotate: -1, tape: 'tl' },
+  { id: 6, src: '/photos/psan.jpeg', emoji: '💌', caption: 'Waktu PS-an', date: '🌸 Selalu di Hati', rotate: 2, tape: 'tr' },
+]
+
 function Lightbox({ photo, onClose }) {
   const ref = useRef(null)
   
@@ -39,21 +48,12 @@ function Lightbox({ photo, onClose }) {
 export default function SlideScrapbook() {
   const [activePhoto, setActivePhoto] = useState(null)
   
-  const photos = [
-    { id: 1, src: '/photos/selfiepertama.jpeg', emoji: '🤳', caption: 'Selfie Pertama Kita', date: '💛 Awal yang Manis', rotate: -3, tape: 'tl' },
-    { id: 2, src: '/photos/fotoboothpertama.jpeg', emoji: '📸', caption: 'Fotobooth Pertama Kitaa', date: '🩷 Momen Abadi', rotate: 2, tape: 'tr' },
-    { id: 3, src: '/photos/fotoboothkesekiankali.jpeg', emoji: '🎞️', caption: 'Fotobooth Lagi & Lagi', date: '✨ Kebiasaan Kita', rotate: -2, tape: 'tl' },
-    { id: 4, src: '/photos/badminton.jpeg', emoji: '🏸', caption: 'Badminton!!', date: '💖 Kompak Terus', rotate: 3, tape: 'tr' },
-    { id: 5, src: '/photos/digebyok.jpeg', emoji: '💦', caption: 'Anjay di Digebyok', date: '😂 Lucu Banget', rotate: -1, tape: 'tl' },
-    { id: 6, src: '/photos/psan.jpeg', emoji: '💌', caption: 'Waktu PS-an', date: '🌸 Selalu di Hati', rotate: 2, tape: 'tr' },
-  ]
-  
   useEffect(() => {
     gsap.fromTo('.scrap-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.1 })
     gsap.fromTo(
       '.scrap-item',
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, rotation: (i) => photos[i % photos.length].rotate, duration: 0.5, stagger: 0.08, ease: 'back.out(1.4)', delay: 0.2 }
+      { opacity: 1, y: 0, rotation: (i) => PHOTOS[i % PHOTOS.length].rotate, duration: 0.5, stagger: 0.08, ease: 'back.out(1.4)', delay: 0.2 }
     )
   }, [])
   
@@ -63,7 +63,7 @@ export default function SlideScrapbook() {
       <h2 className="scrap-title section-title">Scrapbook Kita 📷</h2>
       <p className="section-desc">Ketuk setiap foto untuk membuka kenangan indah kita.</p>
       <div className="scrapbook-grid">
-        {photos.map((p) => (
+        {PHOTOS.map((p) => (
           <div key={p.id} className="scrap-item" style={{ '--rot': `${p.rotate}deg` }} onClick={() => setActivePhoto(p)}>
             <div className={`scrap-tape scrap-tape-${p.tape}`} />
             <div className="scrap-photo-wrap">

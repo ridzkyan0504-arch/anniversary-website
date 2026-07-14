@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import './App.css'
 
 import YouTubePlayer from './components/YouTubePlayer'
@@ -12,16 +12,26 @@ export default function App() {
   const [kissVisible, setKissVisible] = useState(false)
   const [musicPlaying, setMusicPlaying] = useState(false)
   const playerRef = useRef(null)
+  const shouldPlayMusicRef = useRef(false)
 
-  function handlePlayerReady() {}
+  const startMusic = useCallback(() => {
+    const player = playerRef.current
+    if (!player?.playVideo) return false
+
+    player.setVolume(70)
+    player.playVideo()
+    setMusicPlaying(true)
+    return true
+  }, [])
+
+  const handlePlayerReady = useCallback(() => {
+    if (shouldPlayMusicRef.current) startMusic()
+  }, [startMusic])
 
   function handleTap() {
+    shouldPlayMusicRef.current = true
     setTimeout(() => {
-      if (playerRef.current?.playVideo) {
-        playerRef.current.setVolume(70)
-        playerRef.current.playVideo()
-        setMusicPlaying(true)
-      }
+      startMusic()
     }, 200)
   }
 
@@ -35,27 +45,23 @@ export default function App() {
       playerRef.current.pauseVideo()
       setMusicPlaying(false)
     } else {
-      playerRef.current.playVideo()
-      setMusicPlaying(true)
+      shouldPlayMusicRef.current = true
+      startMusic()
     }
-  }
-
-  if (!started) {
-    return (
-      <>
-        <YouTubePlayer playerRef={playerRef} onReady={handlePlayerReady} />
-        <EnvelopeIntro onOpen={handleOpen} onTap={handleTap} />
-      </>
-    )
   }
 
   return (
     <>
       <YouTubePlayer playerRef={playerRef} onReady={handlePlayerReady} />
-      <MusicButton playing={musicPlaying} onToggle={toggleMusic} />
-      <SlideShow onKiss={() => setKissVisible(true)} />
-      <KissPopup visible={kissVisible} onClose={() => setKissVisible(false)} />
+      {!started ? (
+        <EnvelopeIntro onOpen={handleOpen} onTap={handleTap} />
+      ) : (
+        <>
+          <MusicButton playing={musicPlaying} onToggle={toggleMusic} />
+          <SlideShow onKiss={() => setKissVisible(true)} />
+          <KissPopup visible={kissVisible} onClose={() => setKissVisible(false)} />
+        </>
+      )}
     </>
   )
 }
-

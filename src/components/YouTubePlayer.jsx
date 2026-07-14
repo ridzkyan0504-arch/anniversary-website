@@ -1,19 +1,39 @@
 import { useEffect, useRef } from 'react'
 
 const YT_VIDEO_ID = 'awWKxGftWh4'
+let youtubeApiPromise
+
+function loadYouTubeApi() {
+  if (window.YT?.Player) return Promise.resolve()
+  if (youtubeApiPromise) return youtubeApiPromise
+
+  youtubeApiPromise = new Promise((resolve) => {
+    const previousReadyHandler = window.onYouTubeIframeAPIReady
+    window.onYouTubeIframeAPIReady = () => {
+      previousReadyHandler?.()
+      resolve()
+    }
+
+    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+      const tag = document.createElement('script')
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(tag)
+    }
+  })
+
+  return youtubeApiPromise
+}
 
 export default function YouTubePlayer({ playerRef, onReady }) {
   const containerRef = useRef(null)
 
   useEffect(() => {
-    if (!window.YT) {
-      const tag = document.createElement('script')
-      tag.src = 'https://www.youtube.com/iframe_api'
-      document.head.appendChild(tag)
-    }
+    let destroyed = false
+    let player
 
-    function initPlayer() {
-      playerRef.current = new window.YT.Player(containerRef.current, {
+    loadYouTubeApi().then(() => {
+      if (destroyed || !containerRef.current) return
+      player = new window.YT.Player(containerRef.current, {
         videoId: YT_VIDEO_ID,
         playerVars: {
           autoplay: 0,
@@ -29,18 +49,19 @@ export default function YouTubePlayer({ playerRef, onReady }) {
           onReady: () => onReady && onReady(),
         },
       })
-    }
-
-    if (window.YT && window.YT.Player) initPlayer()
-    else window.onYouTubeIframeAPIReady = initPlayer
+      playerRef.current = player
+    })
 
     return () => {
-      if (playerRef.current) {
-        playerRef.current.destroy()
+      destroyed = true
+      if (player) {
+        player.destroy()
+      }
+      if (playerRef.current === player) {
         playerRef.current = null
       }
     }
-  }, [])
+  }, [onReady, playerRef])
 
   return (
     <div

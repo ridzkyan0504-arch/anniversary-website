@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 
+const ANNIVERSARY_DATE = new Date('2024-07-12T00:00:00')
+
 export default function SlideCountdown() {
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  const ANNIVERSARY_DATE = new Date('2024-07-12T00:00:00')
   
   useEffect(() => {
     function calc() {

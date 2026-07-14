@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { gsap } from 'gsap'
 
 export default function SlideFlipbook() {
   const [currentPage, setCurrentPage] = useState(0)

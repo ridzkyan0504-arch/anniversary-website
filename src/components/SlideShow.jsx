@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { gsap } from 'gsap'
 
 import FloatingHearts from './FloatingHearts'
@@ -32,9 +32,10 @@ export default function SlideShow({ onKiss }) {
   const [current, setCurrent] = useState(0)
   const [animating, setAnimating] = useState(false)
   const containerRef = useRef(null)
+  const transitionRef = useRef(null)
   const total = SLIDE_LABELS.length
 
-  const slides = [
+  const slides = useMemo(() => [
     <SlideHero key="hero" />,
     <SlideCountdown key="countdown" />,
     <SlideScrapbook key="scrapbook" />,
@@ -46,7 +47,9 @@ export default function SlideShow({ onKiss }) {
     <SlideStars key="stars" />,
     <SlidePromise key="promise" />,
     <SlideFinal key="final" onKiss={onKiss} />,
-  ]
+  ], [onKiss])
+
+  useEffect(() => () => transitionRef.current?.kill(), [])
 
   const goTo = useCallback(
     (next, dir) => {
@@ -56,24 +59,23 @@ export default function SlideShow({ onKiss }) {
       const inX = dir === 1 ? '100%' : '-100%'
 
       // Animate out current
-      gsap.to(containerRef.current, {
+      transitionRef.current = gsap.to(containerRef.current, {
         x: outX,
         opacity: 0,
         duration: 0.4,
         ease: 'power2.inOut',
         onComplete: () => {
           setCurrent(next)
-          gsap.fromTo(
-            containerRef.current,
-            { x: inX, opacity: 0 },
-            {
-              x: '0%',
-              opacity: 1,
-              duration: 0.4,
-              ease: 'power2.out',
-              onComplete: () => setAnimating(false),
-            }
-          )
+          requestAnimationFrame(() => {
+            transitionRef.current = gsap.fromTo(
+              containerRef.current,
+              { x: inX, opacity: 0 },
+              {
+                x: '0%', opacity: 1, duration: 0.4, ease: 'power2.out',
+                onComplete: () => setAnimating(false),
+              }
+            )
+          })
         },
       })
     },
@@ -98,7 +100,10 @@ export default function SlideShow({ onKiss }) {
   function onTouchEnd(e) {
     if (touchStart.current === null) return
     const diff = touchStart.current - e.changedTouches[0].clientX
-    if (Math.abs(diff) > 50) diff > 0 ? next() : prev()
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) next()
+      else prev()
+    }
     touchStart.current = null
   }
 

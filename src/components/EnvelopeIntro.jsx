@@ -22,7 +22,7 @@ export default function EnvelopeIntro({ onOpen, onTap }) {
   function handleClick() {
     if (opened) return
     setOpened(true)
-    onTap && onTap()
+    if (onTap) onTap()
     const tl = gsap.timeline()
     tl.to('.env-flap', { rotateX: -180, duration: 0.6, ease: 'power2.inOut', transformOrigin: 'top center' })
       .to('.env-letter-peek', { y: -70, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' }, '-=0.2')
