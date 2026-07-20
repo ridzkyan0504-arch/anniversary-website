@@ -1254,3 +1254,51 @@
   .slide-inner { justify-content: flex-start; padding-top: 8px; }
   .music-fab { bottom: calc(12px + env(safe-area-inset-bottom)); }
 }
+
+/* ============ REASONS RANDOM ============ */
+.slide-reasons-random { justify-content: flex-start; padding-top: 16px; }
+
+.reason-cards-random {
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 360px; width: 100%; margin: 0 auto 20px;
+}
+
+.reason-card {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: white;
+  border-radius: 18px; padding: 16px 18px;
+  box-shadow: 0 4px 20px rgba(232,84,122,0.1);
+  border: 1.5px solid rgba(232,84,122,0.12);
+}
+
+.reason-card-emoji {
+  font-size: 30px; min-width: 36px; text-align: center; line-height: 1;
+  margin-top: 2px;
+}
+
+.reason-card-content {
+  text-align: left;
+}
+
+.reason-card-content strong {
+  font-size: 15px; color: var(--text-dark); display: block; margin-bottom: 4px;
+}
+
+.reason-card-content p {
+  font-size: 13px; color: var(--text-mid); line-height: 1.65; margin: 0;
+}
+
+/* Spin button */
+.spin-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+  color: white; padding: 13px 28px; border-radius: 50px;
+  font-size: 15px; font-weight: 700; letter-spacing: 0.03em;
+  box-shadow: 0 6px 20px rgba(232,84,122,0.35);
+  cursor: pointer; border: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.spin-btn:active { transform: scale(0.94); box-shadow: 0 3px 10px rgba(232,84,122,0.25); }
+.spin-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+.spin-btn-icon { font-size: 18px; display: inline-block; }
