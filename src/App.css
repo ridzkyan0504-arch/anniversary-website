@@ -372,8 +372,36 @@
 
 /* ============ FINAL SLIDE ============ */
 .slide-final {
-  background: linear-gradient(160deg,#c13060 0%,#e8547a 50%,#f4a0b5 100%);
   min-height: 100%;
+  position: relative;
+}
+
+/* Saat slide final aktif, wrapper background ikut jadi pink */
+.slideshow-wrapper.is-final {
+  background: linear-gradient(160deg, #c13060 0%, #e8547a 50%, #f4a0b5 100%);
+  transition: background 0.5s ease;
+}
+
+/* Dots & label warna putih di slide final */
+.slideshow-wrapper.is-final .slide-dot {
+  background: rgba(255,255,255,0.35);
+}
+.slideshow-wrapper.is-final .slide-dot.active {
+  background: white;
+}
+.slideshow-wrapper.is-final .slide-label-top {
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.25);
+}
+.slideshow-wrapper.is-final .slide-counter {
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+}
+.slideshow-wrapper.is-final .slide-btn {
+  background: rgba(255,255,255,0.25);
+  color: white;
+  border-color: rgba(255,255,255,0.3);
 }
 .final-glow {
   position:absolute; inset:0;

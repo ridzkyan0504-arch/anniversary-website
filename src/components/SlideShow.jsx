@@ -110,8 +110,14 @@ export default function SlideShow({ onKiss }) {
     touchStart.current = null
   }
 
+  const isFinal = current === total - 1
+
   return (
-    <div className="slideshow-wrapper" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <div
+      className={`slideshow-wrapper ${isFinal ? 'is-final' : ''}`}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <FloatingHearts />
 
       {/* Slide dots */}
