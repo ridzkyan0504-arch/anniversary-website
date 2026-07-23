@@ -18,6 +18,7 @@ export default function App() {
     const player = playerRef.current
     if (!player?.playVideo) return false
 
+    player.seekTo(20, true)
     player.setVolume(70)
     player.playVideo()
     setMusicPlaying(true)
