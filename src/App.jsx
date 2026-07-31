@@ -18,22 +18,28 @@ export default function App() {
     const player = playerRef.current
     if (!player?.playVideo) return false
 
-    player.seekTo(20, true)
-    player.setVolume(70)
-    player.playVideo()
+    try {
+      player.seekTo(20, true)
+      player.setVolume(70)
+      player.unMute?.()
+      player.playVideo()
+    } catch (err) {
+      console.warn('[music] playVideo failed:', err)
+      return false
+    }
     setMusicPlaying(true)
     return true
   }, [])
 
   const handlePlayerReady = useCallback(() => {
-    if (shouldPlayMusicRef.current) startMusic()
+    if (shouldPlayMusicRef.current) {
+      requestAnimationFrame(() => startMusic())
+    }
   }, [startMusic])
 
   function handleTap() {
     shouldPlayMusicRef.current = true
-    setTimeout(() => {
-      startMusic()
-    }, 200)
+    startMusic()
   }
 
   function handleOpen() {
@@ -41,13 +47,14 @@ export default function App() {
   }
 
   function toggleMusic() {
-    if (!playerRef.current) return
+    if (!playerRef.current?.playVideo) return
     if (musicPlaying) {
       playerRef.current.pauseVideo()
       setMusicPlaying(false)
     } else {
-      shouldPlayMusicRef.current = true
-      startMusic()
+      playerRef.current.unMute?.()
+      playerRef.current.playVideo()
+      setMusicPlaying(true)
     }
   }
 
